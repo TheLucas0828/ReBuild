@@ -6,6 +6,7 @@ public class EnemySpawner : MonoBehaviour
 {
     public GameObject enemy;
     public GameObject tower;
+    public float secondsPerSpawn;
 
     private void Start()
     {
@@ -16,7 +17,7 @@ public class EnemySpawner : MonoBehaviour
     {
         for(int i = 0; i < 1; i++)
         {
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(secondsPerSpawn);
         }
         SpawnEnemy(enemy);
         StartCoroutine(Spawn());
@@ -60,7 +61,8 @@ public class EnemySpawner : MonoBehaviour
             y *= -1f;
         }
 
-        GameObject newEnemy = Instantiate(enemy, new Vector2(x, y), Quaternion.identity);
+        GameObject newEnemy = Instantiate(enemy, new Vector2(x, y), Quaternion.identity, this.transform);
         newEnemy.GetComponent<EnemyMovement>().tower = tower;
+        newEnemy.name = newEnemy.name.Replace("(Clone)", "");
     }
 }
