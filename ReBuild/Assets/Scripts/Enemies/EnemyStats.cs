@@ -8,6 +8,7 @@ public class EnemyStats : MonoBehaviour
     public float health;
     public float damage;
     public EnemyMovement movement;
+    public float cost;
 
     private void Update()
     {

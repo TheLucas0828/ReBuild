@@ -7,20 +7,54 @@ public class EnemySpawner : MonoBehaviour
     public GameObject enemy;
     public GameObject tower;
     public float secondsPerSpawn;
+    public GameObject[] enemies;
+    int power = 1;
+    public float credits = 0f;
+    public float creditsGiven;
 
     private void Start()
     {
-        StartCoroutine(Spawn());
+        StartCoroutine(GiveCredits());
     }
 
-    IEnumerator Spawn()
+    private void Update()
+    {
+        float x = 5f - (0.1f * (power - 1f));
+        if(x >= 0.125f) 
+        { 
+            secondsPerSpawn = x;
+        } else
+        {
+            secondsPerSpawn = 0.125f;
+        }
+
+        float creditsToGive = 5f * (Mathf.Pow(1.26f, power - 1f));
+        creditsGiven = creditsToGive;
+
+        if(credits > 0f)
+        {
+            enemy = enemies[Random.Range(0, enemies.Length - 1)];
+            if(enemy.GetComponent<EnemyStats>().cost <= credits)
+            {
+                credits -= enemy.GetComponent<EnemyStats>().cost;
+                SpawnEnemy(enemy);
+            }
+        }
+    }
+
+    void AddEnemy(GameObject newEnemy)
+    {
+        enemies[enemies.Length] = newEnemy;
+    }
+
+    IEnumerator GiveCredits()
     {
         for(int i = 0; i < 1; i++)
         {
             yield return new WaitForSeconds(secondsPerSpawn);
         }
-        SpawnEnemy(enemy);
-        StartCoroutine(Spawn());
+        credits += creditsGiven;
+        StartCoroutine(GiveCredits());
     }
 
     void SpawnEnemy(GameObject enemy)
