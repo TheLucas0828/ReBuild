@@ -6,8 +6,8 @@ public class EnemyMovement : MonoBehaviour
 {
     public GameObject tower;
     float speed = 1f;
-    public CircleCollider2D radius;
     public bool touchingTower = false;
+    public float stopRadius = 0f;
     void Update()
     {
         touchingTower = false;
@@ -20,7 +20,7 @@ public class EnemyMovement : MonoBehaviour
 
     void touchPlayer()
     {
-        Collider2D[] towersHit = Physics2D.OverlapCircleAll(transform.position, .4f);
+        Collider2D[] towersHit = Physics2D.OverlapCircleAll(transform.position, stopRadius);
         foreach (Collider2D towers in towersHit)
         {
             //Debug.Log(towers.)
