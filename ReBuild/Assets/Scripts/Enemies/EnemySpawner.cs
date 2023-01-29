@@ -29,7 +29,7 @@ public class EnemySpawner : MonoBehaviour
         }
 
         float creditsToGive = 5f * (Mathf.Pow(1.26f, power - 1f));
-        creditsGiven = creditsToGive;
+        creditsGiven = creditsToGive * 5f;
 
         if(credits > 0f)
         {

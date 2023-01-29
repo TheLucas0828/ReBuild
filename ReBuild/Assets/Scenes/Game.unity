@@ -155,9 +155,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackRadius: 1.75
-  attackSpeed: 1
+  attackSpeed: 0.125
   health: 500
-  targeting: First
+  targeting: Closest
   spawner: {fileID: 1917803714}
   bullet: {fileID: 5990210380651124490, guid: 0c7e44ec81b5db049ad431a5379e3c08, type: 3}
   enemyMask:
@@ -623,6 +623,8 @@ MonoBehaviour:
   secondsPerSpawn: 5
   enemies:
   - {fileID: 3162089382868121892, guid: 4c9770322b2979d45825017511bdf6d2, type: 3}
+  credits: 0
+  creditsGiven: 0
 --- !u!1 &1936284121
 GameObject:
   m_ObjectHideFlags: 0

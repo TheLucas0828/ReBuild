@@ -18,10 +18,86 @@ public class TowerAI : MonoBehaviour
     {
         if (canShoot && spawner.gameObject.transform.childCount > 0 && EnemyInRange())
         {
-            canShoot = false;
-            GameObject enemy = TargetEnemy();
-            ShootEnemy(enemy, bullet);
-            StartCoroutine(Cooldown());
+            GameObject returnEnemy = null;
+            List<GameObject> enemies = new List<GameObject>();
+            for (int i = 0; i < spawner.gameObject.transform.childCount; i++)
+            {
+                if (InRange(spawner.gameObject.transform.GetChild(i).gameObject)) ;
+                {
+                    enemies.Add(spawner.gameObject.transform.GetChild(i).gameObject);
+                }
+            }
+            foreach(GameObject enemy in enemies)
+            {
+                if (Vector3.Distance(enemy.transform.position, this.transform.position) <= attackRadius)
+                {
+                    returnEnemy = enemy;
+                    break;
+                }
+            }
+            switch (targeting)
+            {
+                case "First":
+                    foreach (GameObject enemy in enemies)
+                    {
+                        if (returnEnemy != null && enemy.GetComponent<EnemyStats>().timeAlive > returnEnemy.GetComponent<EnemyStats>().timeAlive && InRange(enemy))
+                        {
+                            returnEnemy = enemy;
+                        }
+                    }
+                    break;
+                case "Last":
+                    foreach (GameObject enemy in enemies)
+                    {
+                        if (returnEnemy != null && enemy.GetComponent<EnemyStats>().timeAlive < returnEnemy.GetComponent<EnemyStats>().timeAlive && InRange(enemy))
+                        {
+                            returnEnemy = enemy;
+                        }
+                    }
+                    break;
+                case "Strongest":
+                    foreach (GameObject enemy in enemies)
+                    {
+                        if (returnEnemy != null && enemy.GetComponent<EnemyStats>().health > returnEnemy.GetComponent<EnemyStats>().health && InRange(enemy))
+                        {
+                            returnEnemy = enemy;
+                        }
+                    }
+                    foreach (GameObject enemy in enemies)
+                    {
+                        if (returnEnemy != null && enemy.GetComponent<EnemyStats>().health == returnEnemy.GetComponent<EnemyStats>().health &&
+                            enemy.GetComponent<EnemyStats>().timeAlive > returnEnemy.GetComponent<EnemyStats>().timeAlive && InRange(enemy))
+                        {
+                            returnEnemy = enemy;
+                        }
+                    }
+                    break;
+                case "Closest":
+                    foreach (GameObject enemy in enemies)
+                    {
+                        if (returnEnemy != null && Vector3.Distance(enemy.transform.position, this.gameObject.transform.position) <
+                            Vector3.Distance(returnEnemy.transform.position, this.gameObject.transform.position) && InRange(enemy))
+                        {
+                            returnEnemy = enemy;
+                        }
+                    }
+                    foreach (GameObject enemy in enemies)
+                    {
+                        if (returnEnemy != null && Vector3.Distance(enemy.transform.position, this.gameObject.transform.position) ==
+                            Vector3.Distance(returnEnemy.transform.position, this.gameObject.transform.position) &&
+                            enemy.GetComponent<EnemyStats>().timeAlive > returnEnemy.GetComponent<EnemyStats>().timeAlive && InRange(enemy))
+                        {
+                            returnEnemy = enemy;
+                        }
+                    }
+                    break;
+            }
+            if (returnEnemy != null)
+            {
+                ShootEnemy(returnEnemy, bullet);
+                canShoot = false;
+                StartCoroutine(Cooldown());
+            }
         }
     }
 
@@ -48,78 +124,6 @@ public class TowerAI : MonoBehaviour
             return true;
         }
         return false;
-    }
-
-
-    public GameObject TargetEnemy()
-    {
-        List<GameObject> enemies = new List<GameObject>();
-        for(int i = 0; i < spawner.gameObject.transform.childCount; i++)
-        {
-            if (InRange(spawner.gameObject.transform.GetChild(i).gameObject));
-            {
-                enemies.Add(spawner.gameObject.transform.GetChild(i).gameObject);
-            }
-        }
-        GameObject returnEnemy = enemies[0];
-        switch (targeting)
-        {
-            case "First":
-                foreach (GameObject enemy in enemies)
-                {
-                    if (enemy.GetComponent<EnemyStats>().timeAlive > returnEnemy.GetComponent<EnemyStats>().timeAlive && InRange(enemy))
-                    {
-                        returnEnemy = enemy;
-                    }
-                }
-                break;
-            case "Last":
-                foreach (GameObject enemy in enemies)
-                {
-                    if (enemy.GetComponent<EnemyStats>().timeAlive < returnEnemy.GetComponent<EnemyStats>().timeAlive && InRange(enemy))
-                    {
-                        returnEnemy = enemy;
-                    }
-                }
-                break;
-            case "Strongest":
-                foreach (GameObject enemy in enemies)
-                {
-                    if (enemy.GetComponent<EnemyStats>().health > returnEnemy.GetComponent<EnemyStats>().health && InRange(enemy))
-                    {
-                        returnEnemy = enemy;
-                    }
-                }
-                foreach(GameObject enemy in enemies)
-                {
-                    if(enemy.GetComponent<EnemyStats>().health == returnEnemy.GetComponent<EnemyStats>().health && 
-                        enemy.GetComponent<EnemyStats>().timeAlive > returnEnemy.GetComponent<EnemyStats>().timeAlive && InRange(enemy))
-                    {
-                        returnEnemy = enemy;
-                    }
-                }
-                break;
-            case "Closest":
-                foreach (GameObject enemy in enemies)
-                {
-                    if (Vector3.Distance(enemy.transform.position, this.gameObject.transform.position) <
-                        Vector3.Distance(returnEnemy.transform.position, this.gameObject.transform.position) && InRange(enemy))
-                    {
-                        returnEnemy = enemy;
-                    }
-                }
-                foreach(GameObject enemy in enemies)
-                { 
-                    if (Vector3.Distance(enemy.transform.position, this.gameObject.transform.position) ==
-                        Vector3.Distance(returnEnemy.transform.position, this.gameObject.transform.position) &&
-                        enemy.GetComponent<EnemyStats>().timeAlive > returnEnemy.GetComponent<EnemyStats>().timeAlive && InRange(enemy))
-                    {
-                        returnEnemy = enemy;
-                    }
-                }
-                break;
-        }
-        return returnEnemy;
     }
 
     bool InRange(GameObject enemy)
