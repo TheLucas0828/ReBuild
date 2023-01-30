@@ -29,7 +29,7 @@ public class EnemySpawner : MonoBehaviour
         }
 
         float creditsToGive = 5f * (Mathf.Pow(1.26f, power - 1f));
-        creditsGiven = creditsToGive * 5f;
+        creditsGiven = creditsToGive;
 
         if(credits > 0f)
         {
@@ -69,11 +69,11 @@ public class EnemySpawner : MonoBehaviour
 
         if(Random.Range(0f, 100f) >= 50f)
         {
-            x = Random.Range(0f, 5f);
+            x = Random.Range(0.1f, 5f);
             randVar = "x";
         } else
         {
-            y = Random.Range(0f, 5f);
+            y = Random.Range(0.1f, 5f);
             randVar = "y";
         }
 

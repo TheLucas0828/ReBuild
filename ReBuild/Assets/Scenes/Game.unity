@@ -155,7 +155,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackRadius: 1.75
-  attackSpeed: 0.125
+  attackSpeed: 1
   health: 500
   targeting: Closest
   spawner: {fileID: 1917803714}
