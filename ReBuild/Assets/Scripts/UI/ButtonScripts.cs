@@ -11,6 +11,5 @@ public class ButtonScripts : MonoBehaviour
     {
         manager.inMenu = true;
         manager.upgradeMenu.SetActive(true);
-        manager.UI.SetActive(false);
     }
 }

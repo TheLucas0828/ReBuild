@@ -16,7 +16,6 @@ public class UIScreenManager : MonoBehaviour
             inMenu = false;
             upgradeMenu.SetActive(false);
             rebuildMenu.SetActive(false);
-            UI.SetActive(true);
         }
     }
 }

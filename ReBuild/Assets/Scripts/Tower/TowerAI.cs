@@ -7,6 +7,7 @@ public class TowerAI : MonoBehaviour
     public float attackRadius;
     public float attackSpeed;
     public float health;
+    public int power = 1;
     public string targeting = "First";
     bool canShoot = true;
     public EnemySpawner spawner;

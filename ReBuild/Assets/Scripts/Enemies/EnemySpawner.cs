@@ -8,18 +8,19 @@ public class EnemySpawner : MonoBehaviour
     public GameObject tower;
     public float secondsPerSpawn;
     public GameObject[] enemies;
-    int power = 1;
+    public int power;
     public float credits = 0f;
     public float creditsGiven;
 
     private void Start()
     {
+        power = tower.GetComponent<TowerAI>().power;
         StartCoroutine(GiveCredits());
     }
 
     private void Update()
     {
-        float x = 5f - (0.1f * (power - 1f));
+        float x = 5f - (0.2f * (power - 1f));
         if(x >= 0.125f) 
         { 
             secondsPerSpawn = x;
@@ -28,7 +29,7 @@ public class EnemySpawner : MonoBehaviour
             secondsPerSpawn = 0.125f;
         }
 
-        float creditsToGive = 5f * (Mathf.Pow(1.26f, power - 1f));
+        float creditsToGive = 5f * (Mathf.Pow(1.5f, power - 1f));
         creditsGiven = creditsToGive;
 
         if(credits > 0f)
