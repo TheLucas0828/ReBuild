@@ -17,13 +17,25 @@ public class UpgradeButtons : MonoBehaviour
         {
             this.gameObject.GetComponent<Button>().interactable = false;
         }
-        else if (path == "Top" && (upgradeNumber != tower.GetComponent<Upgrades>().topPath - 1 || tower.GetComponent<Upgrades>().bottomPath > 0))
+        else if (path == "Top")
         {
-            this.gameObject.GetComponent<Button>().interactable = false;
+            if (upgradeNumber != tower.GetComponent<Upgrades>().topPath + 1 || !tower.GetComponent<Upgrades>().firstUpgrade)
+            {
+                this.gameObject.GetComponent<Button>().interactable = false;
+            } else
+            {
+                this.gameObject.GetComponent<Button>().interactable = true;
+            }
         }
-        else if (path == "Bottom" && (upgradeNumber != tower.GetComponent<Upgrades>().bottomPath - 1 || tower.GetComponent<Upgrades>().topPath > 0))
+        else if (path == "Bottom")
         {
-            this.gameObject.GetComponent<Button>().interactable = false;
+            if (upgradeNumber != tower.GetComponent<Upgrades>().bottomPath + 1 || !tower.GetComponent<Upgrades>().firstUpgrade)
+            {
+                this.gameObject.GetComponent<Button>().interactable = false;
+            } else
+            {
+                this.gameObject.GetComponent<Button>().interactable = true;
+            }
         }
         else if (path == "First" && tower.GetComponent<Upgrades>().firstUpgrade)
         {

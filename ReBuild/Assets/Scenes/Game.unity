@@ -392,6 +392,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tower: {fileID: 113943962}
+  spawner: {fileID: 1917803712}
   upgradeNumber: 3
   path: Bottom
   price: 2000
@@ -2018,6 +2019,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tower: {fileID: 113943962}
+  spawner: {fileID: 1917803712}
   upgradeNumber: 1
   path: Top
   price: 250
@@ -2512,6 +2514,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tower: {fileID: 113943962}
+  spawner: {fileID: 1917803712}
   upgradeNumber: 0
   path: First
   price: 50
@@ -3400,6 +3403,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tower: {fileID: 113943962}
+  spawner: {fileID: 1917803712}
   upgradeNumber: 3
   path: Top
   price: 3000
@@ -3991,6 +3995,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tower: {fileID: 113943962}
+  spawner: {fileID: 1917803712}
   upgradeNumber: 1
   path: Bottom
   price: 150
@@ -5607,6 +5612,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tower: {fileID: 113943962}
+  spawner: {fileID: 1917803712}
   upgradeNumber: 2
   path: Top
   price: 750
@@ -6358,6 +6364,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tower: {fileID: 113943962}
+  spawner: {fileID: 1917803712}
   upgradeNumber: 2
   path: Bottom
   price: 600
@@ -6546,6 +6553,9 @@ MonoBehaviour:
   power: 0
   credits: 0
   creditsGiven: 0
+  enemiesForList:
+  - {fileID: 3162089382868121892, guid: 4c9770322b2979d45825017511bdf6d2, type: 3}
+  - {fileID: 3162089382868121892, guid: 79b4b4252950d2741b144874cd52e7b6, type: 3}
 --- !u!1 &1936284121
 GameObject:
   m_ObjectHideFlags: 0
