@@ -695,7 +695,7 @@ MonoBehaviour:
   towerClass: Gunner
   gunnerBullet: {fileID: 5990210380651124490, guid: 0c7e44ec81b5db049ad431a5379e3c08, type: 3}
   heavyBullet: {fileID: 5990210380651124490, guid: fef226ec174fb2e47a78268739df8ad0, type: 3}
-  massiveBullet: {fileID: 0}
+  massiveBullet: {fileID: 5990210380651124490, guid: 4222512dfcb23b44c86bdac3b957e0c0, type: 3}
   upgrader: {fileID: 113943969}
 --- !u!114 &113943969
 MonoBehaviour:

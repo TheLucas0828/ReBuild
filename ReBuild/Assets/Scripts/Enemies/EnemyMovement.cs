@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyMovement : MonoBehaviour
 {
     public GameObject tower;
-    float speed = 1f;
+    public float speed = 1f;
     public bool touchingTower = false;
     public float stopRadius = 0f;
     void Update()
@@ -14,7 +14,12 @@ public class EnemyMovement : MonoBehaviour
         touchPlayer();
         float step = speed * Time.deltaTime;
         if(!touchingTower){
+            this.gameObject.GetComponent<MeleeAttack>().canAttack = false;
             this.transform.position = Vector2.MoveTowards(this.transform.position, tower.transform.position, step);
+        }
+        if (touchingTower)
+        {
+            this.gameObject.GetComponent<MeleeAttack>().canAttack = true;
         }
     }
 

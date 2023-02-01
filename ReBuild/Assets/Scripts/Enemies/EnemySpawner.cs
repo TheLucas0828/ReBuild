@@ -12,6 +12,7 @@ public class EnemySpawner : MonoBehaviour
     public float credits = 0f;
     public float creditsGiven;
     bool cooldown = true;
+    public GameObject[] enemiesForList;
 
     private void Start()
     {
@@ -46,7 +47,35 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
-    void AddEnemy(GameObject newEnemy)
+    public GameObject GetNewEnemy(int level)
+    {
+        switch (level)
+        {
+            case 0:
+                GameObject[] zeroLevelList = { enemiesForList[0] };
+                return zeroLevelList[Random.Range(0, zeroLevelList.Length - 1)];
+                break;
+            case 1:
+                GameObject[] firstLevelList = { enemiesForList[0],
+                                                    enemiesForList[0],
+                                                    enemiesForList[0],
+                                                    enemiesForList[1] };
+                return firstLevelList[Random.Range(0, firstLevelList.Length - 1)];
+                break;
+            case 2:
+                GameObject[] secondLevelList = { enemiesForList[0], 
+                                                    enemiesForList[1] };
+                return secondLevelList[Random.Range(0, secondLevelList.Length - 1)];
+                break;
+            case 3:
+                GameObject[] thirdLevelList = { enemiesForList[1], 
+                                                    enemiesForList[1] };
+                break;
+        }
+        return null;
+    }
+
+    public void AddEnemy(GameObject newEnemy)
     {
         enemies[enemies.Length] = newEnemy;
     }
@@ -113,6 +142,7 @@ public class EnemySpawner : MonoBehaviour
         GameObject newEnemy = Instantiate(enemy, new Vector2(x, y), Quaternion.identity, this.transform);
         newEnemy.GetComponent<EnemyStats>().ID = randID;
         newEnemy.GetComponent<EnemyMovement>().tower = tower;
+        newEnemy.GetComponent<MeleeAttack>().tower = tower;
         newEnemy.name = newEnemy.name.Replace("(Clone)", "");
     }
 }

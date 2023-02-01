@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class UpgradeButtons : MonoBehaviour
 {
     public GameObject tower;
+    public GameObject spawner;
     public int upgradeNumber;
     public string path;
     public float price;
@@ -16,11 +17,11 @@ public class UpgradeButtons : MonoBehaviour
         {
             this.gameObject.GetComponent<Button>().interactable = false;
         }
-        else if (path == "Top" && upgradeNumber <= tower.GetComponent<Upgrades>().topPath)
+        else if (path == "Top" && (upgradeNumber != tower.GetComponent<Upgrades>().topPath - 1 || tower.GetComponent<Upgrades>().bottomPath > 0))
         {
             this.gameObject.GetComponent<Button>().interactable = false;
         }
-        else if (path == "Bottom" && upgradeNumber <= tower.GetComponent<Upgrades>().bottomPath)
+        else if (path == "Bottom" && (upgradeNumber != tower.GetComponent<Upgrades>().bottomPath - 1 || tower.GetComponent<Upgrades>().topPath > 0))
         {
             this.gameObject.GetComponent<Button>().interactable = false;
         }
@@ -35,7 +36,7 @@ public class UpgradeButtons : MonoBehaviour
 
     public void BuyUpgrade()
     {
-        if(tower.GetComponent<PlayerStats>().money >= price && ((tower.GetComponent<Upgrades>().topPath < upgradeNumber && path == "Top" && tower.GetComponent<Upgrades>().firstUpgrade) || (tower.GetComponent<Upgrades>().bottomPath < upgradeNumber && path == "Bottom" && tower.GetComponent<Upgrades>().firstUpgrade) || (path == "First")))
+        if(tower.GetComponent<PlayerStats>().money >= price && ((tower.GetComponent<Upgrades>().topPath == upgradeNumber - 1 && path == "Top" && tower.GetComponent<Upgrades>().firstUpgrade) || (tower.GetComponent<Upgrades>().bottomPath == upgradeNumber - 1 && path == "Bottom" && tower.GetComponent<Upgrades>().firstUpgrade) || (path == "First")))
         {
             if(path == "Top")
             {
@@ -47,6 +48,7 @@ public class UpgradeButtons : MonoBehaviour
             {
                 tower.GetComponent<Upgrades>().firstUpgrade = true;
             }
+            spawner.GetComponent<EnemySpawner>().AddEnemy(spawner.GetComponent<EnemySpawner>().GetNewEnemy(upgradeNumber));
             tower.GetComponent<PlayerStats>().money -= price;
         }
     }

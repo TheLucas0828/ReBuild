@@ -6,7 +6,6 @@ public class EnemyStats : MonoBehaviour
 {
     public float timeAlive = 0f;
     public float health;
-    public float damage;
     public float deathMoney;
     public int ID;
     public EnemyMovement movement;
