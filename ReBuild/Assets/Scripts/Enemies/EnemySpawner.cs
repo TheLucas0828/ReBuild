@@ -14,12 +14,12 @@ public class EnemySpawner : MonoBehaviour
 
     private void Start()
     {
-        power = tower.GetComponent<TowerAI>().power;
         StartCoroutine(GiveCredits());
     }
 
     private void Update()
     {
+        power = tower.GetComponent<PlayerStats>().powerLevel;
         float x = 5f - (0.2f * (power - 1f));
         if(x >= 0.125f) 
         { 
@@ -29,7 +29,7 @@ public class EnemySpawner : MonoBehaviour
             secondsPerSpawn = 0.125f;
         }
 
-        float creditsToGive = 5f * (Mathf.Pow(1.5f, power - 1f));
+        float creditsToGive = 5f * (Mathf.Pow(1.8f, power - 1f));
         creditsGiven = creditsToGive;
 
         if(credits > 0f)
@@ -60,6 +60,8 @@ public class EnemySpawner : MonoBehaviour
 
     void SpawnEnemy(GameObject enemy)
     {
+        int randID = Random.Range(0, 10000);
+
         float randX = Random.Range(0f, 100f);
         float randY = Random.Range(0f, 100f);
 
@@ -97,6 +99,7 @@ public class EnemySpawner : MonoBehaviour
         }
 
         GameObject newEnemy = Instantiate(enemy, new Vector2(x, y), Quaternion.identity, this.transform);
+        newEnemy.GetComponent<EnemyStats>().ID = randID;
         newEnemy.GetComponent<EnemyMovement>().tower = tower;
         newEnemy.name = newEnemy.name.Replace("(Clone)", "");
     }
