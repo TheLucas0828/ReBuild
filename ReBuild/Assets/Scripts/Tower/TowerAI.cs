@@ -99,22 +99,22 @@ public class TowerAI : MonoBehaviour
             }
             if (returnEnemy != null)
             {
-                ShootEnemy(returnEnemy, this.transform);
+                ShootEnemy(returnEnemy, this.transform.position, bouncing);
                 canShoot = false;
                 StartCoroutine(Cooldown());
             }
         }
     }
 
-    public void ShootEnemy(GameObject enemy, Transform start)
+    public void ShootEnemy(GameObject enemy, Vector2 start, bool toBounce)
     {
         enemy.GetComponent<EnemyStats>().tempHealth -= bullet.GetComponent<FPShooting>().damage;
-        GameObject pewpew = Instantiate(bullet, start.position, Quaternion.identity, this.transform);
+        GameObject pewpew = Instantiate(bullet, start, Quaternion.identity, this.transform);
+        pewpew.GetComponent<FPShooting>().bounce = toBounce;
+        pewpew.GetComponent<FPShooting>().firstID = enemy.GetComponent<EnemyStats>().ID;
         pewpew.GetComponent<FPShooting>().tower = this;
         pewpew.GetComponent<FPShooting>().spawner = spawner;
         pewpew.GetComponent<FPShooting>().enemyToHit = enemy;
-        pewpew.GetComponent<FPShooting>().direction = enemy.transform.position - start.position;
-        pewpew.GetComponent<FPShooting>().bounce = bouncing;
     }
 
     IEnumerator Cooldown()

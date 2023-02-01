@@ -8,7 +8,7 @@ public class FPShooting : MonoBehaviour
     public GameObject enemyToHit;
     public float firstID;
     public float speed;
-    float timeAlive;
+    public float timeAlive;
     public float lifeSpan;
     public CircleCollider2D collider;
     public float radius;
@@ -18,18 +18,16 @@ public class FPShooting : MonoBehaviour
     public EnemySpawner spawner;
     public TowerAI tower;
 
-    private void Start()
-    {
-        firstID = enemyToHit.GetComponent<EnemyStats>().ID;
-    }
-
     // Update is called once per frame
     void Update()
     {
         //Debug.Log(enemyToHit.GetComponent<EnemyStats>().ID);
         timeAlive += Time.deltaTime;
-        this.transform.position = Vector2.MoveTowards(this.transform.position, direction, speed * Time.deltaTime);
-        CheckCollision();
+        if (enemyToHit != null)
+        {
+            this.transform.position = Vector2.MoveTowards(this.transform.position, enemyToHit.transform.position, speed * Time.deltaTime);
+            CheckCollision();
+        }
         if(timeAlive >= lifeSpan)
         {
             Destroy(this.gameObject);
@@ -46,7 +44,6 @@ public class FPShooting : MonoBehaviour
                 Collider2D[] newEnemies = Physics2D.OverlapCircleAll(this.gameObject.transform.position, 2f, enemyMask);
                 if (bounce && newEnemies != null && newEnemies[0].gameObject.GetComponent<EnemyStats>().ID != firstID)
                 {
-                    
                     bounce = false;
                     if(newEnemies != null)
                     {
@@ -54,14 +51,14 @@ public class FPShooting : MonoBehaviour
                     }
                     foreach (Collider2D enemies in newEnemies)
                     {
-                        if(enemies.gameObject.GetComponent<EnemyStats>().ID != firstID && Vector3.Distance(enemies.transform.position, this.gameObject.transform.position) <
-                            Vector3.Distance(enemyToHit.transform.position, this.gameObject.transform.position) && enemyToHit.GetComponent<EnemyStats>().tempHealth <= damage)
+                        if(enemies.gameObject.GetComponent<EnemyStats>().ID != firstID && Vector2.Distance(enemies.transform.position, this.gameObject.transform.position) <
+                            Vector2.Distance(enemyToHit.transform.position, this.gameObject.transform.position) && enemyToHit.GetComponent<EnemyStats>().tempHealth <= damage)
                         {
                             enemyToHit = enemies.gameObject;
                         }
                     }
-                    tower.ShootEnemy(enemyToHit, this.transform);
-                    bounce = false;
+                    tower.ShootEnemy(enemyToHit, this.transform.position, false);
+                    Destroy(this.gameObject);
                 }
                 Destroy(this.gameObject);
             }

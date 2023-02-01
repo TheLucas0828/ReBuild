@@ -11,6 +11,7 @@ public class EnemySpawner : MonoBehaviour
     public int power;
     public float credits = 0f;
     public float creditsGiven;
+    bool cooldown = true;
 
     private void Start()
     {
@@ -35,10 +36,12 @@ public class EnemySpawner : MonoBehaviour
         if(credits > 0f)
         {
             enemy = enemies[Random.Range(0, enemies.Length - 1)];
-            if(enemy.GetComponent<EnemyStats>().cost <= credits)
+            if(enemy.GetComponent<EnemyStats>().cost <= credits && cooldown)
             {
+                cooldown = false;
                 credits -= enemy.GetComponent<EnemyStats>().cost;
                 SpawnEnemy(enemy);
+                StartCoroutine(SpawnCooldown());
             }
         }
     }
@@ -46,6 +49,15 @@ public class EnemySpawner : MonoBehaviour
     void AddEnemy(GameObject newEnemy)
     {
         enemies[enemies.Length] = newEnemy;
+    }
+
+    IEnumerator SpawnCooldown()
+    {
+        for(int i = 0; i < 1; i++)
+        {
+            yield return new WaitForSeconds(0.075f);
+        }
+        cooldown = true;
     }
 
     IEnumerator GiveCredits()

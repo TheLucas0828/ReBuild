@@ -17,6 +17,7 @@ public class PlayerStats : MonoBehaviour
     public string towerClass;
     public GameObject gunnerBullet;
     public GameObject heavyBullet;
+    public GameObject massiveBullet;
     public Upgrades upgrader;
 
     // Update is called once per frame
@@ -32,7 +33,11 @@ public class PlayerStats : MonoBehaviour
             {
                 this.gameObject.GetComponent<TowerAI>().bullet = gunnerBullet;
             }
-            if (upgrader.firstUpgrade)
+            if (upgrader.bottomPath < 2)
+            {
+                this.gameObject.GetComponent<TowerAI>().bouncing = false;
+            }
+            if (upgrader.firstUpgrade && upgrader.topPath < 1)
             {
                 attackSpeed = .60f;
             }
@@ -57,6 +62,7 @@ public class PlayerStats : MonoBehaviour
                     this.gameObject.GetComponent<TowerAI>().bouncing = true;
                     break;
                 case 3:
+                    this.gameObject.GetComponent<TowerAI>().bullet = massiveBullet;
                     break;
             }
 
