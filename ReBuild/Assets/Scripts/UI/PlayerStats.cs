@@ -47,10 +47,10 @@ public class PlayerStats : MonoBehaviour
                     attackSpeed = .4f;
                     break;
                 case 2:
-                    attackSpeed = .2f;
+                    attackSpeed = .3f;
                     break;
                 case 3:
-                    attackSpeed = .05f;
+                    attackSpeed = .125f;
                     break;
             }
             switch (upgrader.bottomPath)

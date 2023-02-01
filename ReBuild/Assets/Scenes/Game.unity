@@ -688,7 +688,7 @@ MonoBehaviour:
   powerLevel: 1
   level: 1
   levelText: {fileID: 668440668}
-  money: 0
+  money: 5000
   moneyText: {fileID: 809934340}
   health: 500
   maxHealth: 500
@@ -6556,6 +6556,7 @@ MonoBehaviour:
   enemiesForList:
   - {fileID: 3162089382868121892, guid: 4c9770322b2979d45825017511bdf6d2, type: 3}
   - {fileID: 3162089382868121892, guid: 79b4b4252950d2741b144874cd52e7b6, type: 3}
+  - {fileID: 3162089382868121892, guid: 189a62a3c1ecc274686ad06f5771be6e, type: 3}
 --- !u!1 &1936284121
 GameObject:
   m_ObjectHideFlags: 0

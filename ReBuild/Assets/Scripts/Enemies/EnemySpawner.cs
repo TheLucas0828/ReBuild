@@ -36,7 +36,7 @@ public class EnemySpawner : MonoBehaviour
 
         if(credits > 0f)
         {
-            enemy = enemies[Random.Range(0, enemies.Count - 1)];
+            enemy = enemies[Random.Range(0, enemies.Count)];
             if(enemy.GetComponent<EnemyStats>().cost <= credits && cooldown)
             {
                 cooldown = false;
@@ -53,20 +53,28 @@ public class EnemySpawner : MonoBehaviour
         {
             case 0:
                 GameObject[] zeroLevelList = { enemiesForList[0],
-                                                    enemiesForList[1] };
+                                                enemiesForList[0],
+                                                enemiesForList[0],
+                                                enemiesForList[0],
+                                                enemiesForList[0],
+                                                enemiesForList[1],
+                                                enemiesForList[2] };
                 return zeroLevelList[Random.Range(0, zeroLevelList.Length)];
                 break;
             case 1:
                 GameObject[] firstLevelList = { enemiesForList[0],
-                                                    enemiesForList[1] };
+                                                    enemiesForList[1],
+                                                    enemiesForList[2] };
                 return firstLevelList[Random.Range(0, firstLevelList.Length)];
                 break;
             case 2:
-                GameObject[] secondLevelList = { enemiesForList[1] };
+                GameObject[] secondLevelList = { enemiesForList[1],
+                                                    enemiesForList[2] };
                 return secondLevelList[Random.Range(0, secondLevelList.Length)];
                 break;
             case 3:
-                GameObject[] thirdLevelList = { enemiesForList[1] };
+                GameObject[] thirdLevelList = { enemiesForList[1],
+                                                    enemiesForList[2] };
                 return thirdLevelList[Random.Range(0, thirdLevelList.Length)];
                 break;
         }

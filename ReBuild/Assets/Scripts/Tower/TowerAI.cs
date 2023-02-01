@@ -34,7 +34,7 @@ public class TowerAI : MonoBehaviour
             }
             foreach(GameObject enemy in enemies)
             {
-                if (Vector3.Distance(enemy.transform.position, this.transform.position) <= attackRadius && enemy.GetComponent<EnemyStats>().tempHealth >= bullet.GetComponent<FPShooting>().damage)
+                if (Vector3.Distance(enemy.transform.position, this.transform.position) <= attackRadius && enemy.GetComponent<EnemyStats>().tempHealth > 0)
                 {
                     returnEnemy = enemy;
                     break;
@@ -45,7 +45,7 @@ public class TowerAI : MonoBehaviour
                 case "First":
                     foreach (GameObject enemy in enemies)
                     {
-                        if (returnEnemy != null && enemy.GetComponent<EnemyStats>().timeAlive > returnEnemy.GetComponent<EnemyStats>().timeAlive && InRange(enemy) && enemy.GetComponent<EnemyStats>().tempHealth >= bullet.GetComponent<FPShooting>().damage)
+                        if (returnEnemy != null && enemy.GetComponent<EnemyStats>().timeAlive > returnEnemy.GetComponent<EnemyStats>().timeAlive && InRange(enemy) && enemy.GetComponent<EnemyStats>().tempHealth > 0)
                         {
                             returnEnemy = enemy;
                         }
@@ -54,7 +54,7 @@ public class TowerAI : MonoBehaviour
                 case "Last":
                     foreach (GameObject enemy in enemies)
                     {
-                        if (returnEnemy != null && enemy.GetComponent<EnemyStats>().timeAlive < returnEnemy.GetComponent<EnemyStats>().timeAlive && InRange(enemy) && enemy.GetComponent<EnemyStats>().tempHealth >= bullet.GetComponent<FPShooting>().damage)
+                        if (returnEnemy != null && enemy.GetComponent<EnemyStats>().timeAlive < returnEnemy.GetComponent<EnemyStats>().timeAlive && InRange(enemy) && enemy.GetComponent<EnemyStats>().tempHealth > 0)
                         {
                             returnEnemy = enemy;
                         }
@@ -63,7 +63,7 @@ public class TowerAI : MonoBehaviour
                 case "Strongest":
                     foreach (GameObject enemy in enemies)
                     {
-                        if (returnEnemy != null && enemy.GetComponent<EnemyStats>().health > returnEnemy.GetComponent<EnemyStats>().health && InRange(enemy) && enemy.GetComponent<EnemyStats>().tempHealth >= bullet.GetComponent<FPShooting>().damage)
+                        if (returnEnemy != null && enemy.GetComponent<EnemyStats>().health > returnEnemy.GetComponent<EnemyStats>().health && InRange(enemy) && enemy.GetComponent<EnemyStats>().tempHealth > 0)
                         {
                             returnEnemy = enemy;
                         }
@@ -71,7 +71,7 @@ public class TowerAI : MonoBehaviour
                     foreach (GameObject enemy in enemies)
                     {
                         if (returnEnemy != null && enemy.GetComponent<EnemyStats>().health == returnEnemy.GetComponent<EnemyStats>().health &&
-                            enemy.GetComponent<EnemyStats>().timeAlive > returnEnemy.GetComponent<EnemyStats>().timeAlive && InRange(enemy) && enemy.GetComponent<EnemyStats>().tempHealth >= bullet.GetComponent<FPShooting>().damage)
+                            enemy.GetComponent<EnemyStats>().timeAlive > returnEnemy.GetComponent<EnemyStats>().timeAlive && InRange(enemy) && enemy.GetComponent<EnemyStats>().tempHealth > 0)
                         {
                             returnEnemy = enemy;
                         }
@@ -81,7 +81,7 @@ public class TowerAI : MonoBehaviour
                     foreach (GameObject enemy in enemies)
                     {
                         if (returnEnemy != null && Vector3.Distance(enemy.transform.position, this.gameObject.transform.position) <
-                            Vector3.Distance(returnEnemy.transform.position, this.gameObject.transform.position) && InRange(enemy) && enemy.GetComponent<EnemyStats>().tempHealth >= bullet.GetComponent<FPShooting>().damage)
+                            Vector3.Distance(returnEnemy.transform.position, this.gameObject.transform.position) && InRange(enemy) && enemy.GetComponent<EnemyStats>().tempHealth > 0)
                         {
                             returnEnemy = enemy;
                         }
@@ -90,7 +90,7 @@ public class TowerAI : MonoBehaviour
                     {
                         if (returnEnemy != null && Vector3.Distance(enemy.transform.position, this.gameObject.transform.position) ==
                             Vector3.Distance(returnEnemy.transform.position, this.gameObject.transform.position) &&
-                            enemy.GetComponent<EnemyStats>().timeAlive > returnEnemy.GetComponent<EnemyStats>().timeAlive && InRange(enemy) && enemy.GetComponent<EnemyStats>().tempHealth >= bullet.GetComponent<FPShooting>().damage)
+                            enemy.GetComponent<EnemyStats>().timeAlive > returnEnemy.GetComponent<EnemyStats>().timeAlive && InRange(enemy) && enemy.GetComponent<EnemyStats>().tempHealth > 0)
                         {
                             returnEnemy = enemy;
                         }
