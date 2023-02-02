@@ -35,7 +35,7 @@ public class PlayerStats : MonoBehaviour
             }
             if (upgrader.bottomPath < 2)
             {
-                this.gameObject.GetComponent<TowerAI>().bouncing = false;
+                this.gameObject.GetComponent<TowerAI>().bounces = 0;
             }
             if (upgrader.firstUpgrade && upgrader.topPath < 1)
             {
@@ -59,9 +59,10 @@ public class PlayerStats : MonoBehaviour
                     this.gameObject.GetComponent<TowerAI>().bullet = heavyBullet;
                     break;
                 case 2:
-                    this.gameObject.GetComponent<TowerAI>().bouncing = true;
+                    this.gameObject.GetComponent<TowerAI>().bounces = 1;
                     break;
                 case 3:
+                    this.gameObject.GetComponent<TowerAI>().bounces = 2;
                     this.gameObject.GetComponent<TowerAI>().bullet = massiveBullet;
                     break;
             }

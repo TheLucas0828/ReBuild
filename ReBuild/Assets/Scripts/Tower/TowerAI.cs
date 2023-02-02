@@ -12,7 +12,7 @@ public class TowerAI : MonoBehaviour
     public EnemySpawner spawner;
     public GameObject bullet;
     public LayerMask enemyMask;
-    public bool bouncing = false;
+    public int bounces = 0;
 
 
 
@@ -99,18 +99,18 @@ public class TowerAI : MonoBehaviour
             }
             if (returnEnemy != null)
             {
-                ShootEnemy(returnEnemy, this.transform.position, bouncing);
+                ShootEnemy(returnEnemy, this.transform.position, bounces);
                 canShoot = false;
                 StartCoroutine(Cooldown());
             }
         }
     }
 
-    public void ShootEnemy(GameObject enemy, Vector2 start, bool toBounce)
+    public void ShootEnemy(GameObject enemy, Vector2 start, int bounceNum)
     {
         enemy.GetComponent<EnemyStats>().tempHealth -= bullet.GetComponent<FPShooting>().damage;
         GameObject pewpew = Instantiate(bullet, start, Quaternion.identity, this.transform);
-        pewpew.GetComponent<FPShooting>().bounce = toBounce;
+        pewpew.GetComponent<FPShooting>().bounce = bounceNum;
         pewpew.GetComponent<FPShooting>().firstID = enemy.GetComponent<EnemyStats>().ID;
         pewpew.GetComponent<FPShooting>().tower = this;
         pewpew.GetComponent<FPShooting>().spawner = spawner;

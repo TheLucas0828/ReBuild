@@ -14,7 +14,7 @@ public class FPShooting : MonoBehaviour
     public float radius;
     public LayerMask enemyMask;
     public float damage;
-    public bool bounce = false;
+    public int bounce = 0;
     public EnemySpawner spawner;
     public TowerAI tower;
 
@@ -42,9 +42,9 @@ public class FPShooting : MonoBehaviour
             {
                 enemy.gameObject.GetComponent<EnemyStats>().health -= damage;
                 Collider2D[] newEnemies = Physics2D.OverlapCircleAll(this.gameObject.transform.position, 2f, enemyMask);
-                if (bounce && newEnemies != null && newEnemies[0].gameObject.GetComponent<EnemyStats>().ID != firstID)
+                if (bounce > 0 && newEnemies != null && newEnemies[0].gameObject.GetComponent<EnemyStats>().ID != firstID)
                 {
-                    bounce = false;
+                    bounce--;
                     if(newEnemies != null)
                     {
                         enemyToHit = newEnemies[0].gameObject;
@@ -52,12 +52,12 @@ public class FPShooting : MonoBehaviour
                     foreach (Collider2D enemies in newEnemies)
                     {
                         if(enemies.gameObject.GetComponent<EnemyStats>().ID != firstID && Vector2.Distance(enemies.transform.position, this.gameObject.transform.position) <
-                            Vector2.Distance(enemyToHit.transform.position, this.gameObject.transform.position) && enemyToHit.GetComponent<EnemyStats>().tempHealth <= damage)
+                            Vector2.Distance(enemyToHit.transform.position, this.gameObject.transform.position) && enemyToHit.GetComponent<EnemyStats>().tempHealth < 0)
                         {
                             enemyToHit = enemies.gameObject;
                         }
                     }
-                    tower.ShootEnemy(enemyToHit, this.transform.position, false);
+                    tower.ShootEnemy(enemyToHit, this.transform.position, bounce);
                     Destroy(this.gameObject);
                 }
                 Destroy(this.gameObject);
